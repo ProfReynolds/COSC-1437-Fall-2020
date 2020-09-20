@@ -1,0 +1,18 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30503.244
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{504CA909-96D3-4BE8-8AB8-F7AF14FA1AA7}"
+	ProjectSection(SolutionItems) = preProject
+		Behaviors a Tic Tac Toe application should do.txt = Behaviors a Tic Tac Toe application should do.txt
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {497931DD-A746-453E-B6D3-3F4E20C5F556}
+	EndGlobalSection
+EndGlobal
