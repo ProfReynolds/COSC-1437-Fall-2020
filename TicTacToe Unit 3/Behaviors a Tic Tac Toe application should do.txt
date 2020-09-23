@@ -1,0 +1,13 @@
+1. The elements on the application should be:
+text box for the player name
+buttoin to restart the game
+3x3 grid
+button to let the computer make a move
+
+2. game will not advance without a player name at least 3 charqacters
+
+3.
+
+4.
+
+5.
