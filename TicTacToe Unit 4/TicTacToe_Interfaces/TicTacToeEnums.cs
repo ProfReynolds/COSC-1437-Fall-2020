@@ -1,0 +1,17 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Text;
+
+namespace TicTacToe_Interfaces
+{
+    /// <summary>
+    /// CellOwners is the set of possible cell states
+    /// </summary>
+    public enum CellOwners
+    {
+        Error, // this is the default state - never used
+        Open,
+        Human,
+        Computer
+    }
+}
