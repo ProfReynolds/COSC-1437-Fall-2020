@@ -5,7 +5,7 @@ using TicTacToe_Interfaces;
 
 namespace Business_Layer_CSharp
 {
-    class TicTacToeCell : ITicTacToeCell
+    public class TicTacToeCell : ITicTacToeCell
     {
         public int RowID { get; set; }
 

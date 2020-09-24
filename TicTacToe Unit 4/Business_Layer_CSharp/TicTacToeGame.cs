@@ -5,7 +5,7 @@ using TicTacToe_Interfaces;
 
 namespace Business_Layer_CSharp
 {
-    class TicTacToeGame : ITicTacToeGame
+    public class TicTacToeGame : ITicTacToeGame
     {
         public string PlayerName { get; set; } = "My Human";
 
