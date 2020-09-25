@@ -4,6 +4,10 @@
     <OutputType>WinExe</OutputType>
     <TargetFramework>netcoreapp3.1</TargetFramework>
     <UseWindowsForms>true</UseWindowsForms>
+    <Authors>Mark Reynolds</Authors>
+    <Company>Lone Star College</Company>
+    <Product>Weekly Topic Unit 1</Product>
+    <Description>Describe your project here</Description>
   </PropertyGroup>
 
 </Project>
