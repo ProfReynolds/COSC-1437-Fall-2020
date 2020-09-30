@@ -9,7 +9,7 @@ namespace CustomerAndInventory_Tests
         public void Verify_The_ID_Is_Zero_When_Instantiated()
         {
             // assign
-            var customer=new CustomerAndInventory.Customer();
+            var customer = new CustomerAndInventory.Customer();
 
             // action
 
@@ -30,5 +30,63 @@ namespace CustomerAndInventory_Tests
             // assert
             Assert.AreEqual(assignedID, customer.ID);
         }
+
+        #region other tests required of the student
+
+        [TestMethod]
+        public void Verify_The_First_Name_Can_Be_Assigned()
+        {
+            // assign
+            var customer = new CustomerAndInventory.Customer();
+
+            // action
+            customer.FirstName = "John";
+
+            // assert
+            Assert.AreEqual("John", customer.FirstName);
+        }
+
+        [TestMethod]
+        public void Verify_The_Last_Name_Can_Be_Assigned()
+        {
+            // assign
+            var customer = new CustomerAndInventory.Customer();
+
+            // action
+            customer.LastName = "Hancock";
+
+            // assert
+            Assert.AreEqual("Hancock", customer.LastName);
+        }
+
+        [TestMethod]
+        public void Verify_The_Full_Name_Represents_The_First_And_Last_Names()
+        {
+            // assign
+            var customer = new CustomerAndInventory.Customer();
+
+            // action
+            customer.FirstName = "John";
+            customer.LastName = "Hancock";
+
+            // assert
+            Assert.AreEqual("John Hancock", customer.FullName());
+        }
+
+        [TestMethod]
+        public void Verify_The_ValidateName_Returns_True_If_Both_Names_Have_2_Or_More_Characters_Each()
+        {
+            // assign
+            var customer = new CustomerAndInventory.Customer();
+
+            // action
+            customer.FirstName = "John";
+            customer.LastName = "Hancock";
+
+            // assert
+            Assert.AreEqual(true, customer.ValidateName());
+        }
+
+        #endregion
     }
 }

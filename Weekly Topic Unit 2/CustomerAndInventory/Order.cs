@@ -7,6 +7,6 @@ namespace CustomerAndInventory
     class Order
     {
         public int ID { get; set; }
-        public Customer OrderCustomer { get; set; }
+        public int CustomerID { get; set; }
     }
 }
