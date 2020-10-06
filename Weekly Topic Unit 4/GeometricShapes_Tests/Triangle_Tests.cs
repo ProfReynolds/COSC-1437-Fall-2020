@@ -19,7 +19,7 @@ namespace GeometricShapes_Tests
         public void Verify_That_NumberOfSides_Is_3()
         {
             // Arrange
-            Triangle triangle = new Triangle();
+            var triangle = new Triangle();
 
             // Act
 
@@ -31,8 +31,8 @@ namespace GeometricShapes_Tests
         public void Verify_The_SideLength_May_Be_Set_And_Retrieved()
         {
             // Arrange
-            Triangle triangle = new Triangle();
-            double expectedValue = 1.2d;
+            var triangle = new Triangle();
+            var expectedValue = 1.2d;
 
             // Act
             triangle.SideLength = expectedValue;
@@ -45,9 +45,9 @@ namespace GeometricShapes_Tests
         public void Verify_The_Perimeter_May_Be_Set_And_Retrieved()
         {
             // Arrange
-            Triangle triangle = new Triangle();
-            double sideLength = 3.4d;
-            double expectedValue = 10.2d;
+            var triangle = new Triangle();
+            var sideLength = 3.4d;
+            var expectedValue = 10.2d;
 
             // Act
             triangle.SideLength = sideLength;
@@ -60,10 +60,10 @@ namespace GeometricShapes_Tests
         public void Verify_The_Area_Is_Calculated_Accurately()
         {
             // Arrange
-            Triangle triangle = new Triangle();
-            double sideLength = 5.6d; //resulting area = 13.579278331339997981255179317406
-            double expectedAreaMinimumAcceptable = 13.579d;
-            double expectedAreaMaximumAcceptable = 13.581d;
+            var triangle = new Triangle();
+            var sideLength = 5.6d; //resulting area = 13.579278331339997981255179317406
+            var expectedAreaMinimumAcceptable = 13.579d;
+            var expectedAreaMaximumAcceptable = 13.581d;
 
             // Act
             triangle.SideLength = sideLength;
@@ -76,13 +76,25 @@ namespace GeometricShapes_Tests
         public void Verify_TotalMeasureOfAllAngles_Is_Calculated_Accurately()
         {
             // Arrange
-            Triangle triangle = new Triangle();
+            var triangle = new Triangle();
 
             // Act
             var x = triangle.TotalMeasureOfAllAngles();
 
             // Assert
             triangle.TotalMeasureOfAllAngles().ShouldBe(180);
+        }
+
+        [TestMethod]
+        public void Verify_The_Description_Returns_Value()
+        {
+            // Arrange
+            var triangle = new Triangle();
+
+            // Act
+
+            // Assert
+            triangle.Description().ShouldNotBeNullOrWhiteSpace();
         }
     }
 }

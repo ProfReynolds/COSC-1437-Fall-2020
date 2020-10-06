@@ -36,20 +36,20 @@ namespace UI_Layer_CSharp
         {
             // as the content changes, this event will trigger as each character changes
 
-            var PlayerNameIsVaid = (txtPlayerName.Text.Length >= 3);
+            var PlayerNameIsValid = (txtPlayerName.Text.Length >= 3);
 
-            btnStartNewGame.Enabled = PlayerNameIsVaid;
-            btnGoComputer.Enabled = PlayerNameIsVaid;
-            //btnCell00.Enabled = PlayerNameIsVaid;
-            //btnCell01.Enabled = PlayerNameIsVaid;
-            //btnCell02.Enabled = PlayerNameIsVaid;
-            //btnCell10.Enabled = PlayerNameIsVaid;
-            //btnCell11.Enabled = PlayerNameIsVaid;
-            //btnCell12.Enabled = PlayerNameIsVaid;
-            //btnCell20.Enabled = PlayerNameIsVaid;
-            //btnCell21.Enabled = PlayerNameIsVaid;
-            //btnCell22.Enabled = PlayerNameIsVaid;
-            panel1.Enabled = PlayerNameIsVaid;
+            btnStartNewGame.Enabled = PlayerNameIsValid;
+            btnGoComputer.Enabled = PlayerNameIsValid;
+            //btnCell00.Enabled = PlayerNameIsValid;
+            //btnCell01.Enabled = PlayerNameIsValid;
+            //btnCell02.Enabled = PlayerNameIsValid;
+            //btnCell10.Enabled = PlayerNameIsValid;
+            //btnCell11.Enabled = PlayerNameIsValid;
+            //btnCell12.Enabled = PlayerNameIsValid;
+            //btnCell20.Enabled = PlayerNameIsValid;
+            //btnCell21.Enabled = PlayerNameIsValid;
+            //btnCell22.Enabled = PlayerNameIsValid;
+            panel1.Enabled = PlayerNameIsValid;
         }
 
         private void txtPlayerName_Validated(object sender, EventArgs e)

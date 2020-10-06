@@ -31,5 +31,10 @@ namespace GeometricShapes
         {
             return 360;
         }
+
+        public string Description()
+        {
+            return $"This Square is a {NumberOfSides}-sided geometric shape. Each side is {SideLength} and the area is {Area()}";
+        }
     }
 }

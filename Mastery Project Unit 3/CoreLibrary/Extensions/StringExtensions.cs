@@ -1,12 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿
 
 /*
  * ProfReynolds
  */
 
-namespace CoreLibraries
+namespace CoreLibrary.Extensions
 {
     /// <summary>
     /// Various extension methods for string manipulation.

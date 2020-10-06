@@ -18,7 +18,7 @@ namespace GeometricShapes_Tests
         public void Verify_That_NumberOfSides_Is_4()
         {
             // Arrange
-            Square square = new Square();
+            var square = new Square();
 
             // Act
 
@@ -30,8 +30,8 @@ namespace GeometricShapes_Tests
         public void Verify_The_SideLength_May_Be_Set_And_Retrieved()
         {
             // Arrange
-            Square square = new Square();
-            double expectedValue = 1.2d;
+            var square = new Square();
+            var expectedValue = 1.2d;
 
             // Act
             square.SideLength = expectedValue;
@@ -44,9 +44,9 @@ namespace GeometricShapes_Tests
         public void Verify_The_Perimeter_May_Be_Set_And_Retrieved()
         {
             // Arrange
-            Square square = new Square();
-            double sideLength = 3.4d;
-            double expectedValue = 13.6d;
+            var square = new Square();
+            var sideLength = 3.4d;
+            var expectedValue = 13.6d;
 
             // Act
             square.SideLength = sideLength;
@@ -59,11 +59,11 @@ namespace GeometricShapes_Tests
         public void Verify_The_Area_Is_Calculated_Accurately()
         {
             // Arrange
-            Square square = new Square();
-            double sideLength = 5.6d; 
-            double expectedArea= 31.36d;
-            double expectedAreaMinimumAcceptable = expectedArea - .001d;
-            double expectedAreaMaximumAcceptable = expectedArea + .001d;
+            var square = new Square();
+            var sideLength = 5.6d; 
+            var expectedArea= 31.36d;
+            var expectedAreaMinimumAcceptable = expectedArea - .001d;
+            var expectedAreaMaximumAcceptable = expectedArea + .001d;
 
             // Act
             square.SideLength = sideLength;
@@ -76,12 +76,24 @@ namespace GeometricShapes_Tests
         public void Verify_TotalMeasureOfAllAngles_Is_Calculated_Accurately()
         {
             // Arrange
-            Square square = new Square();
+            var square = new Square();
 
             // Act
 
             // Assert
             square.TotalMeasureOfAllAngles().ShouldBe(360);
+        }
+
+        [TestMethod]
+        public void Verify_The_Description_Returns_Value()
+        {
+            // Arrange
+            var square = new Square();
+
+            // Act
+
+            // Assert
+            square.Description().ShouldNotBeNullOrWhiteSpace();
         }
     }
 }

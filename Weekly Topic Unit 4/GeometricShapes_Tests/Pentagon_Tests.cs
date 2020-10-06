@@ -18,7 +18,7 @@ namespace GeometricShapes_Tests
         public void Verify_That_NumberOfSides_Is_5()
         {
             // Arrange
-            Pentagon pentagon = new Pentagon();
+            var pentagon = new Pentagon();
 
             // Act
 
@@ -30,8 +30,8 @@ namespace GeometricShapes_Tests
         public void Verify_The_SideLength_May_Be_Set_And_Retrieved()
         {
             // Arrange
-            Pentagon pentagon = new Pentagon();
-            double expectedValue = 1.2d;
+            var pentagon = new Pentagon();
+            var expectedValue = 1.2d;
 
             // Act
             pentagon.SideLength = expectedValue;
@@ -44,9 +44,9 @@ namespace GeometricShapes_Tests
         public void Verify_The_Perimeter_May_Be_Set_And_Retrieved()
         {
             // Arrange
-            Pentagon pentagon = new Pentagon();
-            double sideLength = 3.4d;
-            double expectedValue = 17d;
+            var pentagon = new Pentagon();
+            var sideLength = 3.4d;
+            var expectedValue = 17d;
 
             // Act
             pentagon.SideLength = sideLength;
@@ -59,10 +59,10 @@ namespace GeometricShapes_Tests
         public void Verify_The_Area_Is_Calculated_Accurately()
         {
             // Arrange
-            Pentagon pentagon = new Pentagon();
-            double sideLength = 5.6d; //resulting area = approx 53.95
-            double expectedAreaMinimumAcceptable = 53.945d;
-            double expectedAreaMaximumAcceptable = 53.955d;
+            var pentagon = new Pentagon();
+            var sideLength = 5.6d; //resulting area = approx 53.95
+            var expectedAreaMinimumAcceptable = 53.945d;
+            var expectedAreaMaximumAcceptable = 53.955d;
 
             // Act
             pentagon.SideLength = sideLength;
@@ -75,12 +75,24 @@ namespace GeometricShapes_Tests
         public void Verify_TotalMeasureOfAllAngles_Is_Calculated_Accurately()
         {
             // Arrange
-            Pentagon pentagon = new Pentagon();
+            var pentagon = new Pentagon();
 
             // Act
 
             // Assert
             pentagon.TotalMeasureOfAllAngles().ShouldBe(540);
+        }
+
+        [TestMethod]
+        public void Verify_The_Description_Returns_Value()
+        {
+            // Arrange
+            var pentagon = new Pentagon();
+
+            // Act
+
+            // Assert
+            pentagon.Description().ShouldNotBeNullOrWhiteSpace();
         }
     }
 }

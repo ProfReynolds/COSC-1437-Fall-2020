@@ -43,5 +43,10 @@ namespace GeometricShapes
         {
             return 180;
         }
+
+        public string Description()
+        {
+            return $"This Triangle is a {NumberOfSides}-sided geometric shape. Each side is {SideLength} and the area is {Area()}";
+        }
     }
 }

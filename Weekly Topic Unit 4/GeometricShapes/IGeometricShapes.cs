@@ -11,5 +11,6 @@ namespace GeometricShapes
         double Perimeter();
         double Area();
         int TotalMeasureOfAllAngles();
+        string Description();
     }
 }

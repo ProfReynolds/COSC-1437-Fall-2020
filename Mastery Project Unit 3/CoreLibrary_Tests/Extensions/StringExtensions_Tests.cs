@@ -1,124 +1,59 @@
+using CoreLibrary.Extensions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using CoreFramework;
-using CoreLibraries;
 using Shouldly;
 
-namespace CoreFramework.Tests.Extensions
+/*
+ * ProfReynolds
+ */
+
+namespace CoreLibrary_Tests.Extensions
 {
     [TestClass]
     public class StringExtensions_Tests
     {
-        #region IsNullOrEmpty
-
         [TestMethod]
-        public void IsNullOrEmpty_IsNull()
+        public void IsNullOrEmpty_Test()
         {
             // Arrange
-            string testCondition = null;
+            string testCondition1 = string.Empty;
+            string testCondition2 = null;
+            string testCondition3 = "ProfReynolds";
+            string testCondition4 = "     ";
 
             // Act
-            var actualResult = testCondition.IsNullOrEmpty();
+            var actualResult1 = testCondition1.IsNullOrEmpty();
+            var actualResult2 = testCondition2.IsNullOrEmpty();
+            var actualResult3 = testCondition3.IsNullOrEmpty();
+            var actualResult4 = testCondition4.IsNullOrEmpty();
 
             // Assert
-            actualResult.ShouldBeTrue();
+            actualResult1.ShouldBeTrue();
+            actualResult2.ShouldBeTrue();
+            actualResult3.ShouldBeFalse();
+            actualResult4.ShouldBeFalse();
         }
 
         [TestMethod]
-        public void IsNullOrEmpty_IsEmpty()
+        public void IsNullOrWhiteSpace_Test()
         {
             // Arrange
-            string testCondition = string.Empty;
+            string testCondition1 = string.Empty;
+            string testCondition2 = null;
+            string testCondition3 = "ProfReynolds";
+            string testCondition4 = "     ";
 
             // Act
-            var actualResult = testCondition.IsNullOrEmpty();
+            var actualResult1 = testCondition1.IsNullOrWhiteSpace();
+            var actualResult2 = testCondition2.IsNullOrWhiteSpace();
+            var actualResult3 = testCondition3.IsNullOrWhiteSpace();
+            var actualResult4 = testCondition4.IsNullOrWhiteSpace();
 
             // Assert
-            actualResult.ShouldBeTrue();
+            actualResult1.ShouldBeTrue();
+            actualResult2.ShouldBeTrue();
+            actualResult3.ShouldBeFalse();
+            actualResult4.ShouldBeTrue();
         }
-
-        [TestMethod]
-        public void IsNullOrEmpty_IsSpaces()
-        {
-            // Arrange
-            string testCondition = "   ";
-
-            // Act
-            var actualResult = testCondition.IsNullOrEmpty();
-
-            // Assert
-            actualResult.ShouldBeFalse();
-        }
-
-        [TestMethod]
-        public void IsNullOrEmpty_HasContent()
-        {
-            // Arrange
-            string testCondition = "Prof Reynolds";
-
-            // Act
-            var actualResult = testCondition.IsNullOrEmpty();
-
-            // Assert
-            actualResult.ShouldBeFalse();
-        }
-
-        #endregion
-
-        #region IsNullOrWhiteSpace
-
-        [TestMethod]
-        public void IsNullOrWhiteSpace_IsNull()
-        {
-            // Arrange
-            string testCondition = null;
-
-            // Act
-            var actualResult = testCondition.IsNullOrWhiteSpace();
-
-            // Assert
-            actualResult.ShouldBeTrue();
-        }
-
-        [TestMethod]
-        public void IsNullOrWhiteSpace_IsEmpty()
-        {
-            // Arrange
-            string testCondition = string.Empty;
-
-            // Act
-            var actualResult = testCondition.IsNullOrWhiteSpace();
-
-            // Assert
-            actualResult.ShouldBeTrue();
-        }
-
-        [TestMethod]
-        public void IsNullOrWhiteSpace_IsSpaces()
-        {
-            // Arrange
-            string testCondition = "   ";
-
-            // Act
-            var actualResult = testCondition.IsNullOrWhiteSpace();
-
-            // Assert
-            actualResult.ShouldBeTrue();
-        }
-
-        [TestMethod]
-        public void IsNullOrWhiteSpace_HasContent()
-        {
-            // Arrange
-            string testCondition = "Prof Reynolds";
-
-            // Act
-            var actualResult = testCondition.IsNullOrWhiteSpace();
-
-            // Assert
-            actualResult.ShouldBeFalse();
-        }
-
-        #endregion
 
         #region Left
 

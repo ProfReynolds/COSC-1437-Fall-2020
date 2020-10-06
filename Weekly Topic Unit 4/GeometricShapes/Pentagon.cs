@@ -25,5 +25,10 @@ namespace GeometricShapes
         {
             return 540;
         }
+
+        public string Description()
+        {
+            return $"This Pentagon is a {NumberOfSides}-sided geometric shape. Each side is {SideLength} and the area is {Area()}";
+        }
     }
 }
