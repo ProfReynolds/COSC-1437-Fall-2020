@@ -9,14 +9,14 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 
 /*
- * ProfReynolds
+ * Prof Reynolds
  */
 
-namespace UI_Layer_CSharp
+namespace Main_Application
 {
-    public partial class MainForm : Form
+    public partial class Form1 : Form
     {
-        public MainForm()
+        public Form1()
         {
             InitializeComponent();
         }
@@ -26,10 +26,5 @@ namespace UI_Layer_CSharp
             Close();
         }
 
-        private void btnAbout_Click(object sender, EventArgs e)
-        {
-            AboutBox newForm = new AboutBox();
-            newForm.Show();
-        }
     }
 }
