@@ -11,168 +11,72 @@ namespace CoreLibrary_Tests.Extensions
     [TestClass]
     public class StringExtensions_Tests
     {
-        [TestMethod]
-        public void IsNullOrEmpty_Test()
+        [DataTestMethod]
+        [DataRow("", true)]
+        [DataRow(" ", false)]
+        [DataRow(null, true)]
+        [DataRow("Prof Reynolds", false)]
+        public void IsNullOrEmpty_Test(string testCondition, bool expectedResult)
         {
             // Arrange
-            string testCondition1 = string.Empty;
-            string testCondition2 = null;
-            string testCondition3 = "ProfReynolds";
-            string testCondition4 = "     ";
+            // no further arrangement required
 
             // Act
-            var actualResult1 = testCondition1.IsNullOrEmpty();
-            var actualResult2 = testCondition2.IsNullOrEmpty();
-            var actualResult3 = testCondition3.IsNullOrEmpty();
-            var actualResult4 = testCondition4.IsNullOrEmpty();
+            var actualResult = testCondition.IsNullOrEmpty();
 
             // Assert
-            actualResult1.ShouldBeTrue();
-            actualResult2.ShouldBeTrue();
-            actualResult3.ShouldBeFalse();
-            actualResult4.ShouldBeFalse();
+            actualResult.ShouldBe(expectedResult);
         }
 
-        [TestMethod]
-        public void IsNullOrWhiteSpace_Test()
+        [DataTestMethod]
+        [DataRow("", true)]
+        [DataRow(" ", true)]
+        [DataRow(null, true)]
+        [DataRow("Prof Reynolds", false)]
+        public void IsNullOrWhiteSpace_Test(string testCondition, bool expectedResult)
         {
             // Arrange
-            string testCondition1 = string.Empty;
-            string testCondition2 = null;
-            string testCondition3 = "ProfReynolds";
-            string testCondition4 = "     ";
+            // no further arrangement required
 
             // Act
-            var actualResult1 = testCondition1.IsNullOrWhiteSpace();
-            var actualResult2 = testCondition2.IsNullOrWhiteSpace();
-            var actualResult3 = testCondition3.IsNullOrWhiteSpace();
-            var actualResult4 = testCondition4.IsNullOrWhiteSpace();
+            var actualResult = testCondition.IsNullOrWhiteSpace();
 
             // Assert
-            actualResult1.ShouldBeTrue();
-            actualResult2.ShouldBeTrue();
-            actualResult3.ShouldBeFalse();
-            actualResult4.ShouldBeTrue();
+            actualResult.ShouldBe(expectedResult);
         }
 
-        #region Left
-
-        [TestMethod]
-        public void Left_Normal()
+        [DataTestMethod]
+        [DataRow("Prof Reynolds", 8, "Prof Rey")]
+        [DataRow("Prof Reynolds", 99, "Prof Reynolds")]
+        [DataRow("Prof Reynolds", 0, "")]
+        [DataRow(null, 99, null)]
+        public void Left_Test(string testCondition, int numCharacters, string expectedResult)
         {
             // Arrange
-            string testCondition = "Prof Reynolds";
-            int numCharacters = 8;
+            // no further arrangement required
 
             // Act
             var actualResult = testCondition.Left(numCharacters);
 
             // Assert
-            actualResult.ShouldBe(expected: "Prof Rey");
+            actualResult.ShouldBe(expected: expectedResult);
         }
 
-        [TestMethod]
-        public void Left_IsNull()
+        [DataTestMethod]
+        [DataRow("Prof Reynolds", 8, "Reynolds")]
+        [DataRow("Prof Reynolds", 99, "Prof Reynolds")]
+        [DataRow("Prof Reynolds", 0, "")]
+        [DataRow(null, 99, null)]
+        public void Right_Test(string testCondition, int numCharacters, string expectedResult)
         {
             // Arrange
-            string testCondition = null;
-            int numCharacters = 3;
-
-            // Act
-            var actualResult = testCondition.Left(numCharacters);
-
-            // Assert
-            actualResult.ShouldBeNull();
-        }
-
-        [TestMethod]
-        public void Left_NoCharacters()
-        {
-            // Arrange
-            string testCondition = "Prof Reynolds";
-            int numCharacters = 0;
-
-            // Act
-            var actualResult = testCondition.Left(numCharacters);
-
-            // Assert
-            actualResult.ShouldBeEmpty();
-        }
-
-        [TestMethod]
-        public void Left_TooManyCharacters()
-        {
-            // Arrange
-            string testCondition = "Prof Reynolds";
-            int numCharacters = 20;
-
-            // Act
-            var actualResult = testCondition.Left(numCharacters);
-
-            // Assert
-            actualResult.ShouldNotBeEmpty();
-        }
-
-        #endregion
-
-        #region Right
-
-        [TestMethod]
-        public void Right_Normal()
-        {
-            // Arrange
-            string testCondition = "Prof Reynolds";
-            int numCharacters = 8;
+            // no further arrangement required
 
             // Act
             var actualResult = testCondition.Right(numCharacters);
 
             // Assert
-            actualResult.ShouldBe(expected: "Reynolds");
+            actualResult.ShouldBe(expected: expectedResult);
         }
-
-        [TestMethod]
-        public void Right_IsNull()
-        {
-            // Arrange
-            string testCondition = null;
-            int numCharacters = 3;
-
-            // Act
-            var actualResult = testCondition.Right(numCharacters);
-
-            // Assert
-            actualResult.ShouldBeNull();
-        }
-
-        [TestMethod]
-        public void Right_NoCharacters()
-        {
-            // Arrange
-            string testCondition = "Prof Reynolds";
-            int numCharacters = 0;
-
-            // Act
-            var actualResult = testCondition.Right(numCharacters);
-
-            // Assert
-            actualResult.ShouldBe(expected: string.Empty);
-        }
-
-        [TestMethod]
-        public void Right_TooManyCharacters()
-        {
-            // Arrange
-            string testCondition = "Prof Reynolds";
-            int numCharacters = 20;
-
-            // Act
-            var actualResult = testCondition.Right(numCharacters);
-
-            // Assert
-            actualResult.ShouldBe(expected: "Prof Reynolds");
-        }
-
-        #endregion
     }
 }
