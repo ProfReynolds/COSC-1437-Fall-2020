@@ -1,6 +1,12 @@
+using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Business_Layer_CSharp;
 using TicTacToe_Interfaces;
+using Shouldly;
+
+/*
+ * ProfReynolds
+ */
 
 namespace Business_Layer_Tests
 {
@@ -8,7 +14,7 @@ namespace Business_Layer_Tests
     public class TicTacToeCell_Tests
     {
         [TestMethod]
-        public void Verify_RowID_Initializes_to_0()
+        public void TicTacToeCell_Initializes_Properly()
         {
             // assign
             var ticTacToeCell = new TicTacToeCell();
@@ -16,83 +22,104 @@ namespace Business_Layer_Tests
             // action
 
             // assert
-            Assert.AreEqual(0,ticTacToeCell.RowID);
+            ticTacToeCell.RowID.ShouldBe(0);
+            ticTacToeCell.ColID.ShouldBe(0);
+            ticTacToeCell.CellOwner.ShouldBe(CellOwners.Open);
         }
 
-        [TestMethod]
-        public void Verify_RowID_Does_Not_Accept_Values_Below_0()
+        [DataTestMethod]
+        [DataRow(0, 0)]
+        [DataRow(1, 1)]
+        [DataRow(2, 2)]
+        public void Verify_Assignment_Of_RowID(int attemptedAssignment, int expectedResult)
         {
             // assign
             var ticTacToeCell = new TicTacToeCell();
 
             // action
-            ticTacToeCell.RowID = -1;
+            ticTacToeCell.RowID = attemptedAssignment;
 
             // assert
-            Assert.AreEqual(0, ticTacToeCell.RowID);
+            ticTacToeCell.RowID.ShouldBe(expectedResult);
         }
 
-        [TestMethod]
-        public void Verify_RowID_Does_Not_Accept_Values_Above_2()
-        {            // assign
+
+        [DataTestMethod]
+        [DataRow(-1)]
+        [DataRow(3)]
+        [DataRow(999)]
+        public void Assignment_Of_RowID_Outside_Range_Should_Fault(int attemptedAssignment)
+        {            
+            // assign
             var ticTacToeCell = new TicTacToeCell();
 
             // action
-            ticTacToeCell.RowID = 3;
+            // na
 
             // assert
-            Assert.AreEqual(0, ticTacToeCell.RowID);
+            Should.Throw<ArgumentOutOfRangeException>(() =>
+            {
+                ticTacToeCell.RowID = attemptedAssignment;
+            });
         }
 
-        [TestMethod]
-        public void Verify_ColID_Initializes_to_0()
+
+        [DataTestMethod]
+        [DataRow(0, 0)]
+        [DataRow(1, 1)]
+        [DataRow(2, 2)]
+        public void Verify_Assignment_Of_ColID(int attemptedAssignment, int expectedResult)
         {
             // assign
             var ticTacToeCell = new TicTacToeCell();
 
             // action
+            ticTacToeCell.ColID = attemptedAssignment;
 
             // assert
-            Assert.AreEqual(0, ticTacToeCell.ColID);
+            ticTacToeCell.ColID.ShouldBe(expectedResult);
         }
 
-        [TestMethod]
-        public void Verify_ColID_Does_Not_Accept_Values_Below_0()
+        [DataTestMethod]
+        [DataRow(-1)]
+        [DataRow(3)]
+        [DataRow(999)]
+        public void Assignment_Of_ColID_Outside_Range_Should_Fault(int attemptedAssignment)
         {
             // assign
             var ticTacToeCell = new TicTacToeCell();
 
             // action
-            ticTacToeCell.ColID = -1;
+            // na
 
             // assert
-            Assert.AreEqual(0, ticTacToeCell.ColID);
+            Should.Throw<ArgumentOutOfRangeException>(() =>
+            {
+                ticTacToeCell.ColID = attemptedAssignment;
+            });
         }
 
-        [TestMethod]
-        public void Verify_ColID_Does_Not_Accept_Values_Above_2()
+
+        [DataTestMethod]
+        [DataRow(CellOwners.Error, CellOwners.Error)]
+        [DataRow(CellOwners.Open, CellOwners.Open)]
+        [DataRow(CellOwners.Human, CellOwners.Human)]
+        [DataRow(CellOwners.Computer, CellOwners.Computer)]
+        public void Verify_Assignment_Of_CellOwner(CellOwners attemptedAssignment, CellOwners expectedResult)
         {
             // assign
             var ticTacToeCell = new TicTacToeCell();
 
             // action
-            ticTacToeCell.ColID = 3;
+            ticTacToeCell.CellOwner = attemptedAssignment;
 
             // assert
-            Assert.AreEqual(0, ticTacToeCell.ColID);
+            ticTacToeCell.CellOwner.ShouldBe(expectedResult);
         }
 
-        [TestMethod]
-        public void Verify_CellOwner_Accepts_NewValue()
-        {
-            // assign
-            var ticTacToeCell = new TicTacToeCell();
-
-            // action
-            ticTacToeCell.CellOwner=CellOwners.Open;
-
-            // assert
-            Assert.AreEqual(CellOwners.Open, ticTacToeCell.CellOwner);
-        }
+        /*
+         * this unit test makes no since because the enum prevents illegal assignment
+         * public void Assignment_Of_CellOwner_Outside_Range_Should_Fault(int attemptedAssignment)
+         */
     }
 }

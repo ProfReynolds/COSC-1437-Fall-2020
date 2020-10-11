@@ -14,8 +14,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Business_Layer_CSharp", "Bu
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TicTacToe_Interfaces", "TicTacToe_Interfaces\TicTacToe_Interfaces.csproj", "{42E6A30B-41FA-422C-89E7-02CD2EC749B5}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Business_Layer_Tests", "Business_Layer_Tests\Business_Layer_Tests.csproj", "{D3466049-2F26-46A6-843D-A63C3BAD69B7}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -34,10 +32,6 @@ Global
 		{42E6A30B-41FA-422C-89E7-02CD2EC749B5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{42E6A30B-41FA-422C-89E7-02CD2EC749B5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{42E6A30B-41FA-422C-89E7-02CD2EC749B5}.Release|Any CPU.Build.0 = Release|Any CPU
-		{D3466049-2F26-46A6-843D-A63C3BAD69B7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{D3466049-2F26-46A6-843D-A63C3BAD69B7}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{D3466049-2F26-46A6-843D-A63C3BAD69B7}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{D3466049-2F26-46A6-843D-A63C3BAD69B7}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -4,7 +4,7 @@
  * ProfReynolds
  */
 
-namespace CoreLibrary.Extensions
+namespace CoreLibrary
 {
     /// <summary>
     /// Various extension methods for string manipulation.

@@ -1,6 +1,7 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Business_Layer_CSharp;
 using TicTacToe_Interfaces;
+using Shouldly;
 
 namespace Business_Layer_Tests
 {
@@ -8,57 +9,245 @@ namespace Business_Layer_Tests
     public class TicTacToeGame_Tests
     {
         [TestMethod]
-        public void Verify_PlayerName_Initializes_Properly()
+        public void TestClassInstantiation()
         {
-            // assign
+            // acting that the class will instantiate
+
+            // arrange
+
+            // act
             var ticTacToeGame = new TicTacToeGame();
 
-            // action
-
             // assert
-            Assert.AreEqual("My Human", ticTacToeGame.PlayerName);
+            ticTacToeGame.ShouldNotBeNull(); // class sucessfully instantiated
+            ticTacToeGame.PlayerName.ShouldBe("Human"); // player name property propery initialized
+            // ticTacToeGame.CheckForWinner().ShouldBeFalse(); // this test WILL crash because _winningCombinations not initialized
+            ticTacToeGame.Winner.ShouldBe(CellOwners.Error); // winner property is not initialized (defaults to Error)
+            ticTacToeGame.IdentifyCellOwner(0, 0).ShouldBe(CellOwners.Error); // should initially return Error
+            ticTacToeGame.IdentifyWinner().ShouldBe("Error"); // should initially return Error
         }
 
         [TestMethod]
-        public void Verify_PlayerName_Rejects_Blank()
+        public void PlayerNameTest()
         {
-            // assign
+            // Player name property is a holding bin. This is the only testable anything prior to ResetGrid
+
+            // arrange
             var ticTacToeGame = new TicTacToeGame();
 
-            // action
-            ticTacToeGame.PlayerName = "";
+            // act
+            ticTacToeGame.PlayerName = "Prof Reynolds";
 
             // assert
-            Assert.AreNotEqual("", ticTacToeGame.PlayerName);
-            Assert.AreEqual("My Human", ticTacToeGame.PlayerName);
+            ticTacToeGame.PlayerName.ShouldBe("Prof Reynolds");
         }
 
         [TestMethod]
-        public void Verify_PlayerName_Accepts_Entry()
+        public void ResetGridTest()
         {
-            // assign
-            var desiredValue = "Prof Reynolds";
+            // ResetGrid is necessary and must preceed everything except PlayerName
             var ticTacToeGame = new TicTacToeGame();
 
-            // action
-            ticTacToeGame.PlayerName = desiredValue;
+            // arrange
+
+            // act
+            ticTacToeGame.ResetGrid();
 
             // assert
-            Assert.AreEqual(desiredValue, ticTacToeGame.PlayerName);
+            ticTacToeGame.ShouldNotBeNull(); // class sucessfully instantiated
+            ticTacToeGame.PlayerName.ShouldBe("Human"); // player name property propery initialized
+            ticTacToeGame.CheckForWinner().ShouldBeFalse(); // no winner yet
+            ticTacToeGame.Winner.ShouldBe(CellOwners.Open); // winner property should now be Open
+            ticTacToeGame.IdentifyCellOwner(0, 0).ShouldBe(CellOwners.Open); // _ticTacToeCells should now be initialized to open
+            ticTacToeGame.IdentifyWinner().ShouldBeEmpty(); // there is no winner
         }
 
         [TestMethod]
-        public void Verify_RowID_Does_Not_Accept_Values_Below_0()
+        public void AssignCellOwnerTest()
         {
-            // assign
-            var ticTacToeCell = new TicTacToeCell();
+            // make sure that a cell can be assigned as either computer or human
+            // also be sure that only cell within range may be set
+            // many TDD purists argue these are all separate tests
 
-            // action
-            ticTacToeCell.RowID = -1;
+            // arrange
+            var ticTacToeGame = new TicTacToeGame();
+            ticTacToeGame.ResetGrid();
+
+            // act
+            ticTacToeGame.AssignCellOwner(0, 0, CellOwners.Human);
+            ticTacToeGame.AssignCellOwner(0, 1, CellOwners.Computer);
+            ticTacToeGame.AssignCellOwner(0, 11, CellOwners.Computer); // should not do anything
+            ticTacToeGame.AssignCellOwner(0, -1, CellOwners.Computer); // should not do anything
 
             // assert
-            Assert.AreEqual(0, ticTacToeCell.RowID);
+            ticTacToeGame.IdentifyCellOwner(0, 0).ShouldBe(CellOwners.Human);
+            ticTacToeGame.IdentifyCellOwner(0, 1).ShouldBe(CellOwners.Computer);
+            ticTacToeGame.IdentifyCellOwner(0, 2).ShouldBe(CellOwners.Open);
+            ticTacToeGame.IdentifyCellOwner(0, 11).ShouldBe(CellOwners.Error); // out of bounds
+            ticTacToeGame.IdentifyCellOwner(0, -1).ShouldBe(CellOwners.Error);
+            ticTacToeGame.IdentifyCellOwner(0, 3).ShouldBe(CellOwners.Error);
+            ticTacToeGame.IdentifyCellOwner(3, 0).ShouldBe(CellOwners.Error);
+
+            ticTacToeGame.CheckForWinner().ShouldBeFalse(); // no winner yet
+            ticTacToeGame.Winner.ShouldBe(CellOwners.Open); // winner property should now be Open
+            ticTacToeGame.IdentifyWinner().ShouldBeEmpty(); // there is no winner
         }
 
+        [TestMethod]
+        public void NoWinnerFound()
+        {
+            // arrange
+            var ticTacToeGame = new TicTacToeGame();
+            ticTacToeGame.ResetGrid();
+
+            // act
+            /*
+             *      X O X
+             *      X X O
+             *      O X O
+             */
+            ticTacToeGame.AssignCellOwner(0, 0, CellOwners.Human);
+            ticTacToeGame.AssignCellOwner(1, 1, CellOwners.Human);
+            ticTacToeGame.AssignCellOwner(2, 2, CellOwners.Computer);
+            ticTacToeGame.AssignCellOwner(1, 0, CellOwners.Human);
+            ticTacToeGame.AssignCellOwner(1, 2, CellOwners.Computer);
+            ticTacToeGame.AssignCellOwner(0, 1, CellOwners.Computer);
+            ticTacToeGame.AssignCellOwner(0, 2, CellOwners.Human);
+            ticTacToeGame.AssignCellOwner(2, 0, CellOwners.Computer);
+            ticTacToeGame.AssignCellOwner(2, 1, CellOwners.Human);
+
+            // assert
+            ticTacToeGame.CheckForWinner().ShouldBeFalse(); // no winner
+            ticTacToeGame.Winner.ShouldBe(CellOwners.Open); // winner property should be Open
+            ticTacToeGame.IdentifyWinner().ShouldBeEmpty(); // there is no winner
+        }
+
+        public void WinnerHuman()
+        {
+            // arrange
+            var ticTacToeGame = new TicTacToeGame();
+            ticTacToeGame.ResetGrid();
+
+            // act
+            ticTacToeGame.AssignCellOwner(0, 0, CellOwners.Human);
+            ticTacToeGame.AssignCellOwner(1, 1, CellOwners.Human);
+            ticTacToeGame.AssignCellOwner(2, 2, CellOwners.Human);
+
+            // assert
+            ticTacToeGame.CheckForWinner().ShouldBeTrue(); // winner !
+            ticTacToeGame.Winner.ShouldBe(CellOwners.Human);
+            ticTacToeGame.IdentifyWinner().ShouldBe("Unnamed Human");
+        }
+
+        public void WinnerComputer()
+        {
+            // arrange
+            var ticTacToeGame = new TicTacToeGame();
+            ticTacToeGame.ResetGrid();
+
+            // act
+            ticTacToeGame.AssignCellOwner(0, 2, CellOwners.Computer);
+            ticTacToeGame.AssignCellOwner(1, 1, CellOwners.Computer);
+            ticTacToeGame.AssignCellOwner(2, 0, CellOwners.Computer);
+
+            // assert
+            ticTacToeGame.CheckForWinner().ShouldBeTrue(); // winner !
+            ticTacToeGame.Winner.ShouldBe(CellOwners.Computer);
+            ticTacToeGame.IdentifyWinner().ShouldBe("Computer");
+        }
+
+        [TestMethod]
+        public void SimnpleAutoPlayComputerNoWinnerTest()
+        {
+            // arrange
+            var ticTacToeGame = new TicTacToeGame();
+            ticTacToeGame.ResetGrid();
+
+            // act
+            ticTacToeGame.AutoPlayComputer();
+            ticTacToeGame.AutoPlayComputer();
+
+            // assert
+            ticTacToeGame.CheckForWinner().ShouldBeFalse();
+            ticTacToeGame.Winner.ShouldBe(CellOwners.Open);
+        }
+
+        [TestMethod]
+        public void SimnpleAutoPlayComputerWinnerTest()
+        {
+            // arrange
+            var ticTacToeGame = new TicTacToeGame();
+            ticTacToeGame.ResetGrid();
+
+            // act
+            ticTacToeGame.AutoPlayComputer();
+            ticTacToeGame.AutoPlayComputer();
+            ticTacToeGame.AutoPlayComputer();
+
+            // assert
+            ticTacToeGame.CheckForWinner().ShouldBeTrue();
+            ticTacToeGame.Winner.ShouldBe(CellOwners.Computer);
+        }
+
+        [TestMethod]
+        public void AutoPlayComputerWinnerTest()
+        {
+            // arrange
+            var ticTacToeGame = new TicTacToeGame();
+            ticTacToeGame.ResetGrid();
+
+            // act
+            ticTacToeGame.AutoPlayComputer();
+            ticTacToeGame.AssignCellOwner(0, 0, CellOwners.Human);
+            ticTacToeGame.AutoPlayComputer();
+            ticTacToeGame.AssignCellOwner(2, 0, CellOwners.Human);
+            ticTacToeGame.AutoPlayComputer();
+            ticTacToeGame.AssignCellOwner(1, 0, CellOwners.Human);
+            ticTacToeGame.AutoPlayComputer();
+
+            // assert
+            ticTacToeGame.CheckForWinner().ShouldBeTrue();
+            ticTacToeGame.Winner.ShouldBe(CellOwners.Computer);
+        }
+
+        [TestMethod]
+        public void AutoPlayComputerTest()
+        {
+            // arrange
+            var ticTacToeGame = new TicTacToeGame();
+            ticTacToeGame.ResetGrid();
+
+            // act
+            ticTacToeGame.AssignCellOwner(0, 0, CellOwners.Human);
+            ticTacToeGame.AutoPlayComputer();
+            ticTacToeGame.AssignCellOwner(2, 2, CellOwners.Human);
+            ticTacToeGame.AutoPlayComputer();
+            ticTacToeGame.AssignCellOwner(2, 0, CellOwners.Human);
+            ticTacToeGame.AutoPlayComputer();
+            ticTacToeGame.AssignCellOwner(1, 0, CellOwners.Human);
+
+            // assert
+            ticTacToeGame.CheckForWinner().ShouldBeTrue();
+            ticTacToeGame.Winner.ShouldBe(CellOwners.Human);
+            ticTacToeGame.IdentifyWinner().ShouldBe("Human");
+        }
+
+        [TestMethod]
+        public void IdentifyWinnerHumanTest()
+        {
+            // arrange
+            var ticTacToeGame = new TicTacToeGame();
+            ticTacToeGame.ResetGrid();
+
+            // act
+            ticTacToeGame.PlayerName = "Prof Reynolds";
+            ticTacToeGame.AssignCellOwner(0, 0, CellOwners.Human);
+            ticTacToeGame.AssignCellOwner(1, 1, CellOwners.Human);
+            ticTacToeGame.AssignCellOwner(2, 2, CellOwners.Human);
+            ticTacToeGame.CheckForWinner();
+
+            // assert
+            ticTacToeGame.IdentifyWinner().ShouldBe("Prof Reynolds");
+        }
     }
 }
