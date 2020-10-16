@@ -1,12 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 
 /*
  * ProfReynolds
  */
 
-namespace TicTacToe_Interfaces
+namespace Middle_Tier
 {
     /// <summary>
     /// CellOwners is the set of possible cell states

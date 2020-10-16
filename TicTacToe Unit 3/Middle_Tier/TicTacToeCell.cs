@@ -1,26 +1,28 @@
-﻿/*
+﻿using System;
+using System.Collections.Generic;
+using System.Text;
+
+/*
  * ProfReynolds
  */
 
-namespace TicTacToe_Interfaces
+namespace Middle_Tier
 {
-    public interface ITicTacToeCell
+    class TicTacToeCell
     {
         /// <summary>
         /// Property indicating the row of the referenced square. (0-2)
         /// </summary>
-        int RowID { get; set; }
+        public int RowID { get; set; }
 
         /// <summary>
         /// Property indicating the column of the referenced square. (0-2)
         /// </summary>
-        int ColID { get; set; }
+        public int ColID { get; set; }
 
         /// <summary>
         /// Property indicating the owner of a square (human, computer, open, error)
         /// </summary>
-        CellOwners CellOwner { get; set; }
+        public CellOwners CellOwner { get; set; } = CellOwners.Open;
     }
-
 }
-

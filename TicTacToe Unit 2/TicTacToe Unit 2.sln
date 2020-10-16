@@ -8,7 +8,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		Behaviors a Tic Tac Toe application should do.txt = Behaviors a Tic Tac Toe application should do.txt
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UI_Layer_CSharp", "UI_Layer_CSharp\UI_Layer_CSharp.csproj", "{22386A6E-2C67-496F-B2A4-1B7B38E23EB9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Presentation_Tier", "Presentation_Tier\Presentation_Tier.csproj", "{22386A6E-2C67-496F-B2A4-1B7B38E23EB9}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
