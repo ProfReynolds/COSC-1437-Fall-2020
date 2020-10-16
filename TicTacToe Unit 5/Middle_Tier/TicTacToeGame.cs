@@ -1,14 +1,12 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Text;
 using TicTacToe_Interfaces;
 
 /*
  * ProfReynolds
  */
 
-namespace Business_Layer_CSharp
+namespace Middle_Tier
 {
     public class TicTacToeGame : ITicTacToeGame
     {

@@ -36,10 +36,10 @@ namespace Presentation_Tier
         {
             // as the content changes, this event will trigger as each character changes
 
-            var PlayerNameIsValid = (txtPlayerName.Text.Length >= 3);
+            var playerNameIsValid = (txtPlayerName.Text.Length >= 3);
 
-            btnStartNewGame.Enabled = PlayerNameIsValid;
-            btnGoComputer.Enabled = PlayerNameIsValid;
+            btnStartNewGame.Enabled = playerNameIsValid;
+            btnGoComputer.Enabled = playerNameIsValid;
             //btnCell00.Enabled = PlayerNameIsValid;
             //btnCell01.Enabled = PlayerNameIsValid;
             //btnCell02.Enabled = PlayerNameIsValid;
@@ -49,7 +49,7 @@ namespace Presentation_Tier
             //btnCell20.Enabled = PlayerNameIsValid;
             //btnCell21.Enabled = PlayerNameIsValid;
             //btnCell22.Enabled = PlayerNameIsValid;
-            panel1.Enabled = PlayerNameIsValid;
+            panel1.Enabled = playerNameIsValid;
         }
 
         private void txtPlayerName_Validated(object sender, EventArgs e)

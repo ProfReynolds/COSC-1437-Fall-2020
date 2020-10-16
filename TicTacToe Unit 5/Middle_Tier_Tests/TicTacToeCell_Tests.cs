@@ -1,14 +1,14 @@
 using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Business_Layer_CSharp;
-using TicTacToe_Interfaces;
+using Middle_Tier;
 using Shouldly;
+using TicTacToe_Interfaces;
 
 /*
  * ProfReynolds
  */
 
-namespace Business_Layer_Tests
+namespace Middle_Tier_Tests
 {
     [TestClass]
     public class TicTacToeCell_Tests
@@ -42,8 +42,7 @@ namespace Business_Layer_Tests
             // assert
             ticTacToeCell.RowID.ShouldBe(expectedResult);
         }
-
-
+        
         [DataTestMethod]
         [DataRow(-1)]
         [DataRow(3)]

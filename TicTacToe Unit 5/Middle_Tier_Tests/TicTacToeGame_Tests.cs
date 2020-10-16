@@ -1,9 +1,13 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Business_Layer_CSharp;
-using TicTacToe_Interfaces;
+using Middle_Tier;
 using Shouldly;
+using TicTacToe_Interfaces;
 
-namespace Business_Layer_Tests
+/*
+ * ProfReynolds
+ */
+
+namespace Middle_Tier_Tests
 {
     [TestClass]
     public class TicTacToeGame_Tests
