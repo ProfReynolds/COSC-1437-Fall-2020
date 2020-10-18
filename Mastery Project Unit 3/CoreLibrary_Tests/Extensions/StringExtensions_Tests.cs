@@ -1,4 +1,4 @@
-using CoreLibrary.Extensions;
+using CoreLibrary;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Shouldly;
 
@@ -9,108 +9,143 @@ using Shouldly;
 namespace CoreLibrary_Tests.Extensions
 {
     [TestClass]
-    public class StringExtensions_Tests
+    public class StringExtensionsTests
     {
+
+        #region IsNullOrEmpty
+
         [TestMethod]
-        public void IsNullOrEmpty_Test()
+        public void IsNullOrEmpty_IsNull()
         {
-            // Arrange
-            string testCondition1 = string.Empty;
-            string testCondition2 = null;
-            string testCondition3 = "ProfReynolds";
-            string testCondition4 = "     ";
+            string tCondition = null;
 
-            // Act
-            var actualResult1 = testCondition1.IsNullOrEmpty();
-            var actualResult2 = testCondition2.IsNullOrEmpty();
-            var actualResult3 = testCondition3.IsNullOrEmpty();
-            var actualResult4 = testCondition4.IsNullOrEmpty();
+            var actResult = tCondition.IsNullOrEmpty();
 
-            // Assert
-            actualResult1.ShouldBeTrue();
-            actualResult2.ShouldBeTrue();
-            actualResult3.ShouldBeFalse();
-            actualResult4.ShouldBeFalse();
+            actResult.ShouldBeTrue();
+        }
+
+
+        [TestMethod]
+        public void IsNullOrEmpty_IsEmpty()
+        {
+            string tCondition = "";
+
+            var actResult = tCondition.IsNullOrEmpty();
+
+            actResult.ShouldBeTrue();
         }
 
         [TestMethod]
-        public void IsNullOrWhiteSpace_Test()
+        public void IsNullOrEmpty_IsSpaces()
         {
-            // Arrange
-            string testCondition1 = string.Empty;
-            string testCondition2 = null;
-            string testCondition3 = "ProfReynolds";
-            string testCondition4 = "     ";
+            string tCondition = "   ";
 
-            // Act
-            var actualResult1 = testCondition1.IsNullOrWhiteSpace();
-            var actualResult2 = testCondition2.IsNullOrWhiteSpace();
-            var actualResult3 = testCondition3.IsNullOrWhiteSpace();
-            var actualResult4 = testCondition4.IsNullOrWhiteSpace();
+            var actResult = tCondition.IsNullOrEmpty();
 
-            // Assert
-            actualResult1.ShouldBeTrue();
-            actualResult2.ShouldBeTrue();
-            actualResult3.ShouldBeFalse();
-            actualResult4.ShouldBeTrue();
+            actResult.ShouldBeFalse();
         }
+
+        [TestMethod]
+        public void IsNullOrEmpty_HasContent()
+        {
+            string tCondition = "Jack";
+
+            var actResult = tCondition.IsNullOrEmpty();
+
+            actResult.ShouldBeFalse();
+        }
+
+        #endregion
+
+
+        #region IsNullOrWhiteSpace
+
+        [TestMethod]
+        public void IsNullOrWhiteSpace_IsNull()
+        {
+            string tCondition = null;
+
+            var actResult = tCondition.IsNullOrWhiteSpace();
+
+            actResult.ShouldBeTrue();
+        }
+
+        [TestMethod]
+        public void IsNullOrWhiteSpace_IsEmpty()
+        {
+            string tCondition = "";
+
+            var actResult = tCondition.IsNullOrWhiteSpace();
+
+            actResult.ShouldBeTrue();
+        }
+
+        [TestMethod]
+        public void IsNullOrWhiteSpace_IsSpaces()
+        {
+            string tCondition = "   ";
+
+            var actResult = tCondition.IsNullOrWhiteSpace();
+
+            actResult.ShouldBeTrue();
+        }
+
+        [TestMethod]
+        public void IsNullOrWhiteSpace_HasContent()
+        {
+            string tCondition = "Jack";
+
+            var actResult = tCondition.IsNullOrWhiteSpace();
+
+            actResult.ShouldBeFalse();
+        }
+
+        #endregion
 
         #region Left
 
         [TestMethod]
         public void Left_Normal()
         {
-            // Arrange
-            string testCondition = "Prof Reynolds";
-            int numCharacters = 8;
+            string tCondition = "Jack Ramzel";
+            int numChar = 7;
 
-            // Act
-            var actualResult = testCondition.Left(numCharacters);
+            var actResult = tCondition.Left(numChar);
 
-            // Assert
-            actualResult.ShouldBe(expected: "Prof Rey");
+            actResult.ShouldBe("Jack Ra");
         }
 
         [TestMethod]
         public void Left_IsNull()
         {
-            // Arrange
-            string testCondition = null;
-            int numCharacters = 3;
+            string tCondition = null;
+            int numChar = 3;
 
-            // Act
-            var actualResult = testCondition.Left(numCharacters);
+            var actResult = tCondition.Left(numChar);
 
-            // Assert
-            actualResult.ShouldBeNull();
+            actResult.ShouldBe(null);
         }
 
         [TestMethod]
         public void Left_NoCharacters()
         {
-            // Arrange
-            string testCondition = "Prof Reynolds";
-            int numCharacters = 0;
+            string tCondition = "Jack";
+            int numChar = 0;
 
-            // Act
-            var actualResult = testCondition.Left(numCharacters);
+            var actResult = tCondition.Left(numChar);
 
-            // Assert
-            actualResult.ShouldBeEmpty();
+            actResult.ShouldBe("");
         }
 
         [TestMethod]
         public void Left_TooManyCharacters()
         {
-            // Arrange
-            string testCondition = "Prof Reynolds";
-            int numCharacters = 20;
+            string tCondition = "Jack";
+            int numChar = 8;
 
-            // Act
-            var actualResult = testCondition.Left(numCharacters);
+            var actResult = tCondition.Left(numChar);
 
-            // Assert
-            actualResult.ShouldNotBeEmpty();
+            actResult.ShouldBe("Jack");
         }
 
         #endregion
@@ -120,59 +155,49 @@ namespace CoreLibrary_Tests.Extensions
         [TestMethod]
         public void Right_Normal()
         {
-            // Arrange
-            string testCondition = "Prof Reynolds";
-            int numCharacters = 8;
+            string tCondition = "Jack Ramzel";
+            int numChar = 8;
 
-            // Act
-            var actualResult = testCondition.Right(numCharacters);
+            var actResult = tCondition.Right(numChar);
 
-            // Assert
-            actualResult.ShouldBe(expected: "Reynolds");
+            actResult.ShouldBe("k Ramzel");
         }
 
         [TestMethod]
         public void Right_IsNull()
         {
-            // Arrange
-            string testCondition = null;
-            int numCharacters = 3;
+            string tCondition = null;
+            int numChar = 3;
 
-            // Act
-            var actualResult = testCondition.Right(numCharacters);
+            var actResult = tCondition.Right(numChar);
 
-            // Assert
-            actualResult.ShouldBeNull();
+            actResult.ShouldBe(null);
         }
 
         [TestMethod]
         public void Right_NoCharacters()
         {
-            // Arrange
-            string testCondition = "Prof Reynolds";
-            int numCharacters = 0;
+            string tCondition = "Jack";
+            int numChar = 0;
 
-            // Act
-            var actualResult = testCondition.Right(numCharacters);
+            var actResult = tCondition.Right(numChar);
 
-            // Assert
-            actualResult.ShouldBe(expected: string.Empty);
+            actResult.ShouldBe("");
         }
 
         [TestMethod]
         public void Right_TooManyCharacters()
         {
-            // Arrange
-            string testCondition = "Prof Reynolds";
-            int numCharacters = 20;
+            string tCondition = "Jack";
+            int numChar = 8;
 
-            // Act
-            var actualResult = testCondition.Right(numCharacters);
+            var actResult = tCondition.Right(numChar);
 
-            // Assert
-            actualResult.ShouldBe(expected: "Prof Reynolds");
+            actResult.ShouldBe("Jack");
         }
 
         #endregion
+
+
     }
 }

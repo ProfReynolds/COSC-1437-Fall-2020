@@ -1,0 +1,44 @@
+﻿<Window x:Class="WPF_Application.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WPF_Application"
+        mc:Ignorable="d"
+        Title="Mastery Assignment - Mark Reynolds" Height="450" Width="800">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="1*"/>
+            <!--this is the 1st column-->
+            <ColumnDefinition Width="2*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="1*"/>
+            <!--this is the 1st row-->
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="30"/>
+        </Grid.RowDefinitions>
+        <Border Grid.Row="0" Grid.Column="0" Grid.RowSpan="2" Background="Blue" />
+        <Border Grid.Row="0" Grid.Column="1" Background="White" />
+        <Border Grid.Row="1" Grid.Column="1" Background="Red" />
+        <Image Grid.Row="0" Grid.Column="0" Grid.RowSpan="2" 
+               Margin="30,30,30,30" Stretch="Uniform" Source="/star.png"/>
+        <Canvas Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" Background="LightGray" >
+            <Button x:Name="BtnFaultDemonstration1" Content="Fault Demonstration #1" 
+                    HorizontalAlignment="Left" VerticalAlignment="Center" 
+                    Width="250" Height="30" 
+                    FontFamily="Comic Sans MS" FontSize="15" 
+                    Click="BtnFaultDemonstration1_Click" />
+            <Button x:Name="BtnFaultDemonstration2" Content="Fault Demonstration #2" 
+                    HorizontalAlignment="Left" VerticalAlignment="Center" 
+                    Width="250" Height="30" Margin="250,0,0,0"
+                    FontFamily="Comic Sans MS" FontSize="15" 
+                    Click="BtnFaultDemonstration2_Click" />
+            <Button x:Name="BtnFaultDemonstration3" Content="Fault Demonstration #3" 
+                    HorizontalAlignment="Left" VerticalAlignment="Center" 
+                    Width="250" Height="30" Margin="500,0,0,0"
+                    FontFamily="Comic Sans MS" FontSize="15" 
+                    Click="BtnFaultDemonstration3_Click" />
+        </Canvas>
+    </Grid>
+</Window>
