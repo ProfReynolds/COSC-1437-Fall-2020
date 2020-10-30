@@ -1,6 +1,8 @@
 Imports System
 Imports System.Reflection.Metadata.Ecma335
 
+' ProfReynolds
+
 Module Program
 
     class SimpleNodeUsedForTesting
@@ -8,7 +10,7 @@ Module Program
         Public Property ANumber As integer
     end class
 
-    Sub Main(args As String())
+    Sub Main(args As String())  
         Console.WriteLine("ProfReynolds NodeChains")
         Console.WriteLine()
 

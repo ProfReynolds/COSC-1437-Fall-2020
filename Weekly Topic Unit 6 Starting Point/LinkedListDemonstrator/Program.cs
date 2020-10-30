@@ -1,6 +1,10 @@
 ﻿using System;
 
-namespace LinkedList
+/*
+ * ProfReynolds
+ */
+
+namespace LinkedListDemonstrator
 {
     class Program
     {

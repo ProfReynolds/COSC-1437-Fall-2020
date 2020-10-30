@@ -29,7 +29,7 @@ namespace Main_Application
 
         private void btnOpenFile_Click(object sender, EventArgs e)
         {
-            // Diosplays an OpenFileFialog so the user may select a CSV file
+            // Displays an OpenFileFialog so the user may select a CSV file
             var openFileDialog = new OpenFileDialog
             {
                 Filter = @"Comma Separated Values|*.csv|Text File|*.txt",
