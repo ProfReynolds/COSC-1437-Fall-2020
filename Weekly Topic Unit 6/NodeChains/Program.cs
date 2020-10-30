@@ -28,7 +28,8 @@ namespace NodeChains
             //    +-----+------+
             //    |  3  | null +
             //    +-----+------+
-            Debug.WriteLine($"\nnode #1: Value = {first.Value}, Next node = {first.Next}");
+            Debug.WriteLine($"\nnode #1: Value = {first.Value}, Next node = {first.Next?.Value}");
+
 
             /*
              * creating the second node
@@ -40,8 +41,8 @@ namespace NodeChains
             //    +-----+------+    +-----+------+
             //    |  3  | null +    |  5  | null +
             //    +-----+------+    +-----+------+
-            Debug.WriteLine($"\nnode #1: Value = {first.Value}, Next node = {first.Next}");
-            Debug.WriteLine($"node #2: Value = {second.Value}, Next node = {second.Next}");
+            Debug.WriteLine($"\nnode #1: Value = {first.Value}, Next node = {first.Next?.Value}");
+            Debug.WriteLine($"node #2: Value = {second.Value}, Next node = {second.Next?.Value}");
 
 
             /*
@@ -52,21 +53,27 @@ namespace NodeChains
             //    +-----+------+    +-----+------+   +-----+------+
             //    |  3  |  *---+--->|  5  |  *---+-->|  7  | null +
             //    +-----+------+    +-----+------+   +-----+------+
+            Debug.WriteLine($"\nnode #1: Value = {first.Value}, Next node = {first.Next?.Value}");
+            Debug.WriteLine($"node #2: Value = {second.Value}, Next node = {second.Next?.Value}");
+            Debug.WriteLine($"node #3: Value = {third.Value}, Next node = {third.Next?.Value}");
 
 
             var fourth = new Node { Value = 4444 };
             third.Next = fourth;
+            Debug.WriteLine($"\nnode #1: Value = {first.Value}, Next node = {first.Next?.Value}");
+            Debug.WriteLine($"node #2: Value = {second.Value}, Next node = {second.Next?.Value}");
+            Debug.WriteLine($"node #3: Value = {third.Value}, Next node = {third.Next?.Value}");
+            Debug.WriteLine($"node #4: Value = {fourth.Value}, Next node = {fourth.Next?.Value}");
 
 
             var fifth = new Node { Value = 55555 };
             fourth.Next = fifth;
+            Debug.WriteLine($"\nnode #1: Value = {first.Value}, Next node = {first.Next?.Value}");
+            Debug.WriteLine($"node #2: Value = {second.Value}, Next node = {second.Next?.Value}");
+            Debug.WriteLine($"node #3: Value = {third.Value}, Next node = {third.Next?.Value}");
+            Debug.WriteLine($"node #4: Value = {fourth.Value}, Next node = {fourth.Next?.Value}");
+            Debug.WriteLine($"node #5: Value = {fifth.Value}, Next node = {fifth.Next?.Value}");
 
-
-            /*
-             * Demonstrate Understanding
-             * Add comments in your code which…
-             * What workingNode is, how is works, why we do not need an array to track all the nodes.
-             */
 
             var r = new Random();
             var workingNode = fifth;
@@ -74,12 +81,13 @@ namespace NodeChains
             {
                 var newRandomValue = r.Next(100, 200);
 
-                workingNode.Next = new Node();
-                workingNode.Value = newRandomValue;
+                workingNode.Next = new Node()
+                    {
+                        Value = newRandomValue
+                    };
 
                 workingNode = workingNode.Next;
             }
-
 
 
             // now iterate over each node and print the value
