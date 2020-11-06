@@ -7,12 +7,6 @@ using System.Diagnostics;
 
 namespace NodeChains
 {
-    class Node
-    {
-        public int Value { get; set; }
-        public Node Next { get; set; }
-    }
-
     class Program
     {
         static void Main(string[] args)

@@ -1,5 +1,4 @@
-﻿using System;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Middle_Tier;
 using Shouldly;
 using TicTacToe_Interfaces;
@@ -28,10 +27,7 @@ namespace ProfReynoldsUnitTests
             ticTacToeGame.PlayerName.ShouldBe("Prof Reynolds");
 
             // assert winner methods behavior (before ResetGrid method executed)
-            Should.Throw<NullReferenceException>(() =>
-            {
-                ticTacToeGame.CheckForWinner().ShouldBeFalse();
-            });
+            ticTacToeGame.CheckForWinner().ShouldBeFalse();
             ticTacToeGame.Winner.ShouldBe(CellOwners.Error);
             ticTacToeGame.IdentifyCellOwner(0, 0).ShouldBe(CellOwners.Error);
             ticTacToeGame.IdentifyWinner().ShouldBe("Error");

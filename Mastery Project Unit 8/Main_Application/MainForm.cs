@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Data.SqlClient;
 using System.Diagnostics;
 using System.Drawing;
 using System.IO;
@@ -72,7 +73,7 @@ namespace Main_Application
             }
         }
 
-    private void btnWriteEncryptedFile_Click(object sender, EventArgs e)
+        private void btnWriteEncryptedFile_Click(object sender, EventArgs e)
         {
             var openFileDialog = new OpenFileDialog
             {
@@ -101,18 +102,18 @@ namespace Main_Application
                 Debug.WriteLine($"Property 'Name' : {sourceFileStream.Name}");
                 Debug.WriteLine($"Property 'CanRead' : {sourceFileStream.CanRead}");
 
-                var sr = new StreamReader(sourceFileStream);
+                StreamReader sr = new StreamReader(sourceFileStream);
                 
                 Debug.WriteLine($"Property 'EndOfStream' : {sr.EndOfStream}");
 
-                var sourceFileContent = sr.ReadToEnd();
+                string sourceFileContent = sr.ReadToEnd();
                 
                 Debug.WriteLine($"Property 'EndOfStream' : {sr.EndOfStream}");
                 Debug.WriteLine(sourceFileContent.Left(25));
 
 
                 // write to encrypted file
-                var outputFilePath = 
+                string outputFilePath = 
                     Path.ChangeExtension(openFileDialog.FileName, "encrypted");
 
                 Debug.WriteLine($"outputFilePath : {outputFilePath}");
@@ -139,7 +140,7 @@ namespace Main_Application
 
                 toolStripStatusLabel1.Text = openFileDialog.FileName;
 
-                var fileContent = ReadEncrypt(openFileDialog.FileName);
+                string fileContent = ReadEncrypt(openFileDialog.FileName);
 
                 var parsedArrayOfStrings = Regex.Split(fileContent, "\n");
 
@@ -154,7 +155,7 @@ namespace Main_Application
         /// <param name="msg">text to output</param>
         private static void WriteEncrypt(string outputFilePath, string msg)
         {
-            var outputFileStream =
+            FileStream outputFileStream =
                 new FileStream(outputFilePath,
                     FileMode.Create,
                     FileAccess.Write);
@@ -163,17 +164,10 @@ namespace Main_Application
             Debug.WriteLine($"Property 'CanRead' : {outputFileStream.CanRead}");
 
             // (1) Create Data Encryption Standard (DES) object.
-            var crypt = new DESCryptoServiceProvider()
-            {
-                KeySize = 64,
-                Key = new byte[] { 61, 62, 63, 64, 65, 66, 67, 68},
-                IV = new byte[] { 61, 62, 63, 64, 65, 66, 67, 68 }
-            };
-
+            DESCryptoServiceProvider crypt = new DESCryptoServiceProvider();
             // (2) Create a key and Initialization Vector - requires 8 bytes
-            // old key crypt.Key = new byte[] { 71, 72, 83, 84, 85, 96, 97, 78 };
-            // old key crypt.IV = new byte[] { 71, 72, 83, 84, 85, 96, 97, 78 };
-
+            crypt.Key = new byte[] { 71, 72, 83, 84, 85, 96, 97, 78 };
+            crypt.IV = new byte[] { 71, 72, 83, 84, 85, 96, 97, 78 };
             // (3) Create CryptoStream stream object
             CryptoStream cs = 
                 new CryptoStream(outputFileStream,
@@ -194,7 +188,7 @@ namespace Main_Application
         /// <returns></returns>
         private static string ReadEncrypt(string inputFilePath)
         {
-            var inputFileStream =
+            FileStream inputFileStream =
                 new FileStream(inputFilePath,
                     FileMode.Open,
                     FileAccess.Read);
@@ -203,29 +197,40 @@ namespace Main_Application
             Debug.WriteLine($"Property 'CanRead' : {inputFileStream.CanRead}");
 
             // (1) Create Data Encryption Standard (DES) object.
-            var crypt = new DESCryptoServiceProvider()
-            {
-                KeySize = 64,
-                Key = new byte[] { 61, 62, 63, 64, 65, 66, 67, 68 },
-                IV = new byte[] { 61, 62, 63, 64, 65, 66, 67, 68 }
-            };
-
+            DESCryptoServiceProvider crypt = new DESCryptoServiceProvider();
             // (2) Create a key and Initialization Vector
-            // old crypt.Key = new byte[] { 71, 72, 83, 84, 85, 96, 97, 78 };
-            // old crypt.IV = new byte[] { 71, 72, 83, 84, 85, 96, 97, 78 };
-
+            crypt.Key = new byte[] { 71, 72, 83, 84, 85, 96, 97, 78 };
+            crypt.IV = new byte[] { 71, 72, 83, 84, 85, 96, 97, 78 };
             // (3) Create CryptoStream stream object
-            var cs = 
+            CryptoStream cs = 
                 new CryptoStream(inputFileStream,
                     crypt.CreateDecryptor(), 
                     CryptoStreamMode.Read);
-
             // (4) Create StreamReader using CryptoStream
-            var sr = new StreamReader(cs);
-            var msg = sr.ReadToEnd();
+
+            StreamReader sr = new StreamReader(cs);
+            string msg = sr.ReadToEnd();
             sr.Close();
             cs.Close();
             return msg;
+        }
+
+        private void btnReadFromSql_Click(object sender, EventArgs e)
+        {
+            lbFileOutput.Items.Clear();
+
+            var sqlConnectionString = Properties.Settings.Default.SqlConnectionString;
+            var dataTableQueryString = @"SELECT [CustomerID] ,[CompanyName] ,[ContactName] FROM [Customers]";
+
+            var conventionalAdo = new DatabaseDemonstrator.ConventionalAdo();
+            var runQueryTable = conventionalAdo.RunQueryTable(sqlConnectionString, dataTableQueryString);
+
+
+            foreach (DataRow dataRow in runQueryTable.Rows)
+            {
+                var displayString = $"ID:{dataRow[0]},\tCustomer Name:{dataRow[2]}";
+                lbFileOutput.Items.Add(displayString);
+            }
         }
     }
 
