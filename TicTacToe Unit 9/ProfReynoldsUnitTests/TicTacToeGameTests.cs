@@ -196,7 +196,7 @@ namespace ProfReynoldsUnitTests
             ticTacToeGame.AutoPlayComputer();
             ticTacToeGame.AssignCellOwner(2, 0, CellOwners.Human);
             ticTacToeGame.AutoPlayComputer();
-            ticTacToeGame.AssignCellOwner(1, 0, CellOwners.Human);
+            ticTacToeGame.AssignCellOwner(0, 1, CellOwners.Human); // unit #9
             ticTacToeGame.AutoPlayComputer();
 
             // assert
@@ -219,11 +219,12 @@ namespace ProfReynoldsUnitTests
             ticTacToeGame.AssignCellOwner(2, 0, CellOwners.Human);
             ticTacToeGame.AutoPlayComputer();
             ticTacToeGame.AssignCellOwner(1, 0, CellOwners.Human);
+            ticTacToeGame.CheckForWinner();
 
             // assert
             ticTacToeGame.CheckForWinner().ShouldBeTrue();
             ticTacToeGame.Winner.ShouldBe(CellOwners.Human);
-            ticTacToeGame.IdentifyWinner().ShouldBe("Human");
+            ticTacToeGame.IdentifyWinner().ShouldBe("The Human"); // unit #9
         }
     }
 }

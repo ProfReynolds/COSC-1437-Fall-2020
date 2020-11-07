@@ -11,6 +11,15 @@ namespace Middle_Tier
 {
     public class TicTacToeGame : ITicTacToeGame
     {
+        // unit #9
+        /// <summary>
+        ///     this delegate defines the event (and includes the parameters from above)
+        /// </summary>
+        /// <param name="sender">normal event object self reference</param>
+        /// <param name="e">row, column, and owner of a marker (square)</param>
+        public delegate void CellOwnerChangedHandler(object sender, CellOwnerChangedArgs e);
+
+
         public string PlayerName { get; set; } = "The Human";
         public CellOwners Winner { get; private set; }
 
@@ -153,8 +162,9 @@ namespace Middle_Tier
 
         public void AssignCellOwner(int CellRow, int CellCol, CellOwners CellOwner)
         {
-            if (_ticTacToeCells.Count == 0)
-                return;
+            if (_ticTacToeCells.Count == 0) return;
+
+            if (Winner == CellOwners.Computer || Winner == CellOwners.Human) return;
 
             var targetCell = _ticTacToeCells
                 .FirstOrDefault(tttc => tttc.RowID == CellRow && tttc.ColID == CellCol);
@@ -163,25 +173,105 @@ namespace Middle_Tier
                 return;
 
             targetCell.CellOwner = CellOwner;
+
+            // unit #9
+            // these will be the arguments used when the event is fired
+            var eventArgs = new CellOwnerChangedArgs(CellRow, CellCol, CellOwner);
+
+            //bubble the event up to the parent ( ONLY if the parent is listening )
+            CellOwnerChanged?.Invoke(this, eventArgs);
         }
 
         public void AutoPlayComputer()
         {
+            // unit #9
+            if (_ticTacToeCells.Count == 0) return;
+
+            // unit #9
+            if (Winner == CellOwners.Computer || Winner == CellOwners.Human) return;
+
+            // unit #9
+            // checking for possible winning move by the computer
+            foreach (var combination in _winningCombinations)
+            {
+                if (combination[0].CellOwner == CellOwners.Open)
+                {
+                    if ((combination[1].CellOwner == CellOwners.Computer) &&
+                        (combination[2].CellOwner == CellOwners.Computer))
+                    {
+                        AssignCellOwner(combination[0].RowID, combination[0].ColID, CellOwners.Computer);
+                        return;
+                    }
+                }
+                if (combination[1].CellOwner == CellOwners.Open)
+                {
+                    if ((combination[0].CellOwner == CellOwners.Computer) &&
+                        (combination[2].CellOwner == CellOwners.Computer))
+                    {
+                        AssignCellOwner(combination[1].RowID, combination[1].ColID, CellOwners.Computer);
+                        return;
+                    }
+                }
+                if (combination[2].CellOwner == CellOwners.Open)
+                {
+                    if ((combination[0].CellOwner == CellOwners.Computer) &&
+                        (combination[1].CellOwner == CellOwners.Computer))
+                    {
+                        AssignCellOwner(combination[2].RowID, combination[2].ColID, CellOwners.Computer);
+                        return;
+                    }
+                }
+            }
+
+            // checking for possible winning move by the Human
+            foreach (var combination in _winningCombinations)
+            {
+                if (combination[0].CellOwner == CellOwners.Open)
+                {
+                    if ((combination[1].CellOwner == CellOwners.Human) &&
+                        (combination[2].CellOwner == CellOwners.Human))
+                    {
+                        AssignCellOwner(combination[0].RowID, combination[0].ColID, CellOwners.Computer);
+                        return;
+                    }
+                }
+                if (combination[1].CellOwner == CellOwners.Open)
+                {
+                    if ((combination[0].CellOwner == CellOwners.Human) &&
+                        (combination[2].CellOwner == CellOwners.Human))
+                    {
+                        AssignCellOwner(combination[1].RowID, combination[1].ColID, CellOwners.Computer);
+                        return;
+                    }
+                }
+                if (combination[2].CellOwner == CellOwners.Open)
+                {
+                    if ((combination[0].CellOwner == CellOwners.Human) &&
+                        (combination[1].CellOwner == CellOwners.Human))
+                    {
+                        AssignCellOwner(combination[2].RowID, combination[2].ColID, CellOwners.Computer);
+                        return;
+                    }
+                }
+            }
+
             // unit #8
             foreach (var targetCell in _goodNextMove)
             {
                 if (targetCell.CellOwner == CellOwners.Open)
                 {
-                    targetCell.CellOwner = CellOwners.Computer;
+                    AssignCellOwner(targetCell.RowID, targetCell.ColID, CellOwners.Computer);
+                    //targetCell.CellOwner = CellOwners.Computer;
                     return;
                 }
             }
+
         }
 
         public bool CheckForWinner()
         {
             /*
-             * All of these repititious checks are replaced by ...
+             * All of these repetitious checks are replaced by ...
              *
             // first row
             if ((IdentifyCellOwner(0, 0) == CellOwners.Human) &&
@@ -375,5 +465,28 @@ namespace Middle_Tier
             }
         }
 
+        // unit #9
+        /// <summary>
+        ///     The exposed event to the MainForm
+        /// </summary>
+        public event CellOwnerChangedHandler CellOwnerChanged;
+
+        /// <inheritdoc />
+        /// <summary>
+        ///     defines the parameters that are returned to the parent form when the event is triggered
+        /// </summary>
+        public class CellOwnerChangedArgs : EventArgs
+        {
+            public CellOwnerChangedArgs(int rowID, int colID, CellOwners cellOwner)
+            {
+                RowID = rowID;
+                ColID = colID;
+                CellOwner = cellOwner;
+            }
+
+            public int RowID { get; }
+            public int ColID { get; }
+            public CellOwners CellOwner { get; }
+        }
     }
 }

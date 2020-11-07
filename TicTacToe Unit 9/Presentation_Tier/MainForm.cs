@@ -127,5 +127,46 @@ namespace Presentation_Tier
                 MessageBox.Show("The Winner!");
             }
         }
+
+        private void MainForm_Load(object sender, EventArgs e)
+        {
+            // unit #9
+            _ticTacToeGame.CellOwnerChanged += this.CellOwnerChangedHandler;
+        }
+        // unit #9
+        private void CellOwnerChangedHandler(object sender, Middle_Tier.TicTacToeGame.CellOwnerChangedArgs e)
+        {
+            var buttonName = $"btnCell{e.RowID}{e.ColID}";
+            foreach (var control in panel1.Controls)
+            {
+                if (control is Button button)
+                {
+                    if (button.Name == buttonName)
+                    {
+                        switch (e.CellOwner)
+                        {
+                            case CellOwners.Error:
+                                button.Text = "#";
+                                break;
+
+                            case CellOwners.Open:
+                                button.Text = "?";
+                                break;
+
+                            case CellOwners.Human:
+                                button.Text = "X";
+                                break;
+
+                            case CellOwners.Computer:
+                                button.Text = "O";
+                                break;
+
+                            default:
+                                throw new ArgumentOutOfRangeException();
+                        }
+                    }
+                }
+            }
+        }
     }
 }

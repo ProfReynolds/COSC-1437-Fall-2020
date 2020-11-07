@@ -1,0 +1,50 @@
+      public DataTable runQuery(string AdapterFillName, string QueryStr)
+      {
+         SqlConnection connectObj = new SqlConnection(connectionStr);
+         SqlCommand commandObj = new SqlCommand(QueryStr, connectObj);
+         SqlDataAdapter dataAdapterObj = new SqlDataAdapter(commandObj);
+         DataTable dt = new DataTable(AdapterFillName);
+         try
+         {
+            dataAdapterObj.Fill(dt);
+            return dt;
+         }
+         catch (Exception e)
+         {
+            ReportError(e, "SQLClass - runQuery");
+            return null;
+         }
+         finally
+         {
+            connectObj.Close();
+         }
+      }
+      
+      public DataSet runQueryArray(string[] strQueryArray, string[] strTableArray)
+      {
+         string QryStr;
+         SqlConnection connectObj = new SqlConnection(connectionStr);
+         DataSet ds = new DataSet();
+         connectObj.Open();
+
+         try
+         {
+            for (int i = 0; i < strQueryArray.Length; i++)
+            {
+               QryStr = strQueryArray[i].ToString();
+               ds.Tables.Add(strTableArray[i].ToString());
+               SqlCommand commandObj = new SqlCommand(QryStr, connectObj);
+               SqlDataAdapter dataAdapterObj = new SqlDataAdapter(commandObj);
+               dataAdapterObj.Fill(ds.Tables[i]);
+            }
+            return ds;
+         }
+         catch // (Exception e)
+         {
+            return null;
+         }
+         finally
+         {
+            connectObj.Close();
+         }
+      }
