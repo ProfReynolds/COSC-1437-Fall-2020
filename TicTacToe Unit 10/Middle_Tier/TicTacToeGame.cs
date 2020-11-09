@@ -52,14 +52,14 @@ namespace Middle_Tier
 
             // create the 9 cells
             for (var rowNo = 0; rowNo < 3; rowNo++)
-            for (var colNo = 0; colNo < 3; colNo++)
-            {
-                _ticTacToeCells.Add(new TicTacToeCell
+                for (var colNo = 0; colNo < 3; colNo++)
                 {
-                    RowID = rowNo,
-                    ColID = colNo
-                });
-            }
+                    _ticTacToeCells.Add(new TicTacToeCell
+                    {
+                        RowID = rowNo,
+                        ColID = colNo
+                    });
+                }
 
             // Unit #8
             // // initializes the _goodNextMove collection with the preferred moves
@@ -151,7 +151,7 @@ namespace Middle_Tier
             //    .FirstOrDefault(tttc => tttc.RowID == CellRow && tttc.ColID == CellCol);
 
             //var returnValue = targetCell?.CellOwner ?? CellOwners.Error;
-            
+
             //return returnValue;
 
             // C# 7.0 use of null propogation - all in one statement
