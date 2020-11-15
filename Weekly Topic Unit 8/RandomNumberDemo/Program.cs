@@ -27,7 +27,7 @@ namespace RandomNumberDemo
             }
             Console.WriteLine();
 
-            Console.WriteLine($"\n{tree.Count} words");
+            Console.WriteLine($"\n{tree.Count} numbers");
 
             Console.WriteLine("\nAs retrieved ...");
             foreach (var word in tree)

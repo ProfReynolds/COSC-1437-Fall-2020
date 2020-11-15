@@ -306,7 +306,7 @@ namespace Project_1_ThreadTest
                 Thread.Sleep(10);
                 // will we reach this point once or twice???
                 _done = true;
-                Console.WriteLine("Done");
+                Console.WriteLine("Method 'Go' has been reached, _done is now true");
             }
         }
 
