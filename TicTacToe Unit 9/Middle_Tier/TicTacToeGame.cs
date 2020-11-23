@@ -190,250 +190,50 @@ namespace Middle_Tier
             CellOwnerChanged?.Invoke(this, eventArgs);
         }
 
+        // 2021 ???
         public void AutoPlayComputer()
         {
-            // unit #9
+            bool SearchForPlayerReadyToWin(CellOwners checkingCellOwner)
+            {
+                foreach (var combination in _winningCombinations)
+                foreach (var targetCell in combination.Where(tttc => tttc.CellOwner==CellOwners.Open))
+                {
+                    if(combination
+                        .Count(tttc => 
+                            tttc != targetCell && 
+                            tttc.CellOwner != checkingCellOwner)>0)
+                        break;
+
+                    AssignCellOwner(targetCell.RowID, targetCell.ColID, CellOwners.Computer);
+                    return true;
+                }
+
+                return false;
+            }
+
             if (_ticTacToeCells.Count == 0) return;
 
-            // unit #9
             if (Winner == CellOwners.Computer || Winner == CellOwners.Human) return;
 
-            // unit #9
-            // checking for possible winning move by the computer
-            foreach (var combination in _winningCombinations)
-            {
-                if (combination[0].CellOwner == CellOwners.Open)
-                {
-                    if ((combination[1].CellOwner == CellOwners.Computer) &&
-                        (combination[2].CellOwner == CellOwners.Computer))
-                    {
-                        AssignCellOwner(combination[0].RowID, combination[0].ColID, CellOwners.Computer);
-                        return;
-                    }
-                }
-                if (combination[1].CellOwner == CellOwners.Open)
-                {
-                    if ((combination[0].CellOwner == CellOwners.Computer) &&
-                        (combination[2].CellOwner == CellOwners.Computer))
-                    {
-                        AssignCellOwner(combination[1].RowID, combination[1].ColID, CellOwners.Computer);
-                        return;
-                    }
-                }
-                if (combination[2].CellOwner == CellOwners.Open)
-                {
-                    if ((combination[0].CellOwner == CellOwners.Computer) &&
-                        (combination[1].CellOwner == CellOwners.Computer))
-                    {
-                        AssignCellOwner(combination[2].RowID, combination[2].ColID, CellOwners.Computer);
-                        return;
-                    }
-                }
-            }
 
-            // checking for possible winning move by the Human
-            foreach (var combination in _winningCombinations)
-            {
-                if (combination[0].CellOwner == CellOwners.Open)
-                {
-                    if ((combination[1].CellOwner == CellOwners.Human) &&
-                        (combination[2].CellOwner == CellOwners.Human))
-                    {
-                        AssignCellOwner(combination[0].RowID, combination[0].ColID, CellOwners.Computer);
-                        return;
-                    }
-                }
-                if (combination[1].CellOwner == CellOwners.Open)
-                {
-                    if ((combination[0].CellOwner == CellOwners.Human) &&
-                        (combination[2].CellOwner == CellOwners.Human))
-                    {
-                        AssignCellOwner(combination[1].RowID, combination[1].ColID, CellOwners.Computer);
-                        return;
-                    }
-                }
-                if (combination[2].CellOwner == CellOwners.Open)
-                {
-                    if ((combination[0].CellOwner == CellOwners.Human) &&
-                        (combination[1].CellOwner == CellOwners.Human))
-                    {
-                        AssignCellOwner(combination[2].RowID, combination[2].ColID, CellOwners.Computer);
-                        return;
-                    }
-                }
-            }
+            if (SearchForPlayerReadyToWin(CellOwners.Computer)) return;
+            if (SearchForPlayerReadyToWin(CellOwners.Human)) return;
 
-            // unit #8
-            foreach (var targetCell in _goodNextMove)
-            {
-                if (targetCell.CellOwner == CellOwners.Open)
-                {
-                    AssignCellOwner(targetCell.RowID, targetCell.ColID, CellOwners.Computer);
-                    //targetCell.CellOwner = CellOwners.Computer;
-                    return;
-                }
-            }
-
+            var winningCell = _goodNextMove
+                .FirstOrDefault(tttc => tttc.CellOwner == CellOwners.Open);
+            if (winningCell != null)
+                AssignCellOwner(winningCell.RowID, winningCell.ColID, CellOwners.Computer);
         }
+
 
         public bool CheckForWinner()
         {
-            /*
-             * All of these repetitious checks are replaced by ...
-             *
-            // first row
-            if ((IdentifyCellOwner(0, 0) == CellOwners.Human) &&
-                (IdentifyCellOwner(0, 1) == CellOwners.Human) &&
-                (IdentifyCellOwner(0, 2) == CellOwners.Human))
-            {
-                Winner = CellOwners.Human;
-                return true;
-            }
+            // 2021 add this:
+            if (_ticTacToeCells.Count == 0) return false;
 
-            // 2nd row
-            if ((IdentifyCellOwner(1, 0) == CellOwners.Human) &&
-                (IdentifyCellOwner(1, 1) == CellOwners.Human) &&
-                (IdentifyCellOwner(1, 2) == CellOwners.Human))
-            {
-                Winner = CellOwners.Human;
-                return true;
-            }
-
-            // 3rd row
-            if ((IdentifyCellOwner(2, 0) == CellOwners.Human) &&
-                (IdentifyCellOwner(2, 1) == CellOwners.Human) &&
-                (IdentifyCellOwner(2, 2) == CellOwners.Human))
-            {
-                Winner = CellOwners.Human;
-                return true;
-            }
-
-            // 1st col
-            if ((IdentifyCellOwner(0, 0) == CellOwners.Human) &&
-                (IdentifyCellOwner(1, 0) == CellOwners.Human) &&
-                (IdentifyCellOwner(2, 0) == CellOwners.Human))
-            {
-                Winner = CellOwners.Human;
-                return true;
-            }
-
-            // 2nd col
-            if ((IdentifyCellOwner(0, 1) == CellOwners.Human) &&
-                (IdentifyCellOwner(1, 1) == CellOwners.Human) &&
-                (IdentifyCellOwner(2, 1) == CellOwners.Human))
-            {
-                Winner = CellOwners.Human;
-                return true;
-            }
-
-            // 3rd col
-            if ((IdentifyCellOwner(0, 2) == CellOwners.Human) &&
-                (IdentifyCellOwner(1, 2) == CellOwners.Human) &&
-                (IdentifyCellOwner(2, 2) == CellOwners.Human))
-            {
-                Winner = CellOwners.Human;
-                return true;
-            }
-
-            // 1st diag
-            if ((IdentifyCellOwner(0, 0) == CellOwners.Human) &&
-                (IdentifyCellOwner(1, 1) == CellOwners.Human) &&
-                (IdentifyCellOwner(2, 2) == CellOwners.Human))
-            {
-                Winner = CellOwners.Human;
-                return true;
-            }
-
-            // 2nd diag
-            if ((IdentifyCellOwner(0, 2) == CellOwners.Human) &&
-                (IdentifyCellOwner(1, 1) == CellOwners.Human) &&
-                (IdentifyCellOwner(2, 0) == CellOwners.Human))
-            {
-                Winner = CellOwners.Human;
-                return true;
-            }
+            if (Winner == CellOwners.Computer || Winner == CellOwners.Human) return true;
 
 
-
-
-
-            // first row
-            if ((IdentifyCellOwner(0, 0) == CellOwners.Computer) &&
-                (IdentifyCellOwner(0, 1) == CellOwners.Computer) &&
-                (IdentifyCellOwner(0, 2) == CellOwners.Computer))
-            {
-                Winner = CellOwners.Computer;
-                return true;
-            }
-
-            // 2nd row
-            if ((IdentifyCellOwner(1, 0) == CellOwners.Computer) &&
-                (IdentifyCellOwner(1, 1) == CellOwners.Computer) &&
-                (IdentifyCellOwner(1, 2) == CellOwners.Computer))
-            {
-                Winner = CellOwners.Computer;
-                return true;
-            }
-
-            // 3rd row
-            if ((IdentifyCellOwner(2, 0) == CellOwners.Computer) &&
-                (IdentifyCellOwner(2, 1) == CellOwners.Computer) &&
-                (IdentifyCellOwner(2, 2) == CellOwners.Computer))
-            {
-                Winner = CellOwners.Computer;
-                return true;
-            }
-
-            // 1st col
-            if ((IdentifyCellOwner(0, 0) == CellOwners.Computer) &&
-                (IdentifyCellOwner(1, 0) == CellOwners.Computer) &&
-                (IdentifyCellOwner(2, 0) == CellOwners.Computer))
-            {
-                Winner = CellOwners.Computer;
-                return true;
-            }
-
-            // 2nd col
-            if ((IdentifyCellOwner(0, 1) == CellOwners.Computer) &&
-                (IdentifyCellOwner(1, 1) == CellOwners.Computer) &&
-                (IdentifyCellOwner(2, 1) == CellOwners.Computer))
-            {
-                Winner = CellOwners.Computer;
-                return true;
-            }
-
-            // 3rd col
-            if ((IdentifyCellOwner(0, 2) == CellOwners.Computer) &&
-                (IdentifyCellOwner(1, 2) == CellOwners.Computer) &&
-                (IdentifyCellOwner(2, 2) == CellOwners.Computer))
-            {
-                Winner = CellOwners.Computer;
-                return true;
-            }
-
-            // 1st diag
-            if ((IdentifyCellOwner(0, 0) == CellOwners.Computer) &&
-                (IdentifyCellOwner(1, 1) == CellOwners.Computer) &&
-                (IdentifyCellOwner(2, 2) == CellOwners.Computer))
-            {
-                Winner = CellOwners.Computer;
-                return true;
-            }
-
-            // 2nd diag
-            if ((IdentifyCellOwner(0, 2) == CellOwners.Computer) &&
-                (IdentifyCellOwner(1, 1) == CellOwners.Computer) &&
-                (IdentifyCellOwner(2, 0) == CellOwners.Computer))
-            {
-                Winner = CellOwners.Computer;
-                return true;
-            }
-             *
-             */
-
-
-
-            // unit #8
             foreach (var combination in _winningCombinations)
             {
                 // combination is a collection of 3 TicTacToe cell references

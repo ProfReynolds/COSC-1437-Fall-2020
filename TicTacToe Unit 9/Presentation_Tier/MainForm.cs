@@ -15,9 +15,25 @@ namespace Presentation_Tier
     {
         private Middle_Tier.TicTacToeGame _ticTacToeGame = new Middle_Tier.TicTacToeGame();
 
+        /*
+        * ProfReynolds - 2021
+        * I rearranged the methods. Does not change the operation but makes it easier to follow:
+        * 1) constructor (MainForm) and never put anything other than InitializeComponent in the method
+        * 2) form events especially the load event
+        * 3) control events especially the click events
+        * 4) other event handlers such as the _ticTacToeGame.CellOwnerChanged
+        * 5) misc necessary methods (since very, very little implementation belongs in the UI, this should be limited)
+        */
+
         public MainForm()
         {
             InitializeComponent();
+        }
+
+        private void MainForm_Load(object sender, EventArgs e)
+        {
+            // unit #9
+            _ticTacToeGame.CellOwnerChanged += this.CellOwnerChangedHandler;
         }
 
         private void btnExit_Click(object sender, EventArgs e)
@@ -88,7 +104,8 @@ namespace Presentation_Tier
 
             if (_ticTacToeGame.CheckForWinner())
             {
-                MessageBox.Show("The Winner!");
+                // 2021 MessageBox.Show("The Winner!");
+                MessageBox.Show("Computer","The Winner!"); // 2021
             }
         }
 
@@ -124,18 +141,14 @@ namespace Presentation_Tier
             
             if (_ticTacToeGame.CheckForWinner())
             {
-                MessageBox.Show("The Winner!");
+                // 2021 MessageBox.Show("The Winner!");
+                MessageBox.Show(_ticTacToeGame.PlayerName, "The Winner!"); // 2021
             }
         }
 
-        private void MainForm_Load(object sender, EventArgs e)
-        {
-            // unit #9
-            _ticTacToeGame.CellOwnerChanged += this.CellOwnerChangedHandler;
-        }
-        // unit #9
         private void CellOwnerChangedHandler(object sender, Middle_Tier.TicTacToeGame.CellOwnerChangedArgs e)
         {
+            // unit #9
             var buttonName = $"btnCell{e.RowID}{e.ColID}";
             foreach (var control in panel1.Controls)
             {
