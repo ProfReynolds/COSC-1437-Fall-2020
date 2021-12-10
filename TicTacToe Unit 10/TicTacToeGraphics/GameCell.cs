@@ -43,10 +43,10 @@ namespace TicTacToeGraphics
                         this.BackgroundImage = Properties.Resources.OpenCell;
                         break;
                     case CellOwners.Human:
-                        this.BackgroundImage = Properties.Resources.Player_X;
+                        this.BackgroundImage = Properties.Resources.Splinter;
                         break;
                     case CellOwners.Computer:
-                        this.BackgroundImage = Properties.Resources.Player_O;
+                        this.BackgroundImage = Properties.Resources.Shredder;
                         break;
                     default:
                         this.BackgroundImage = Properties.Resources.smiley;

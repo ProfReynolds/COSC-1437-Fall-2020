@@ -390,28 +390,34 @@ namespace Middle_Tier
 
             foreach (var combination in _winningCombinations)
             {
-                // combination is a collection of 3 TicTacToe cell references
                 var firstCell = combination[0];
 
                 if ((firstCell.CellOwner != CellOwners.Computer) &&
                     (firstCell.CellOwner != CellOwners.Human)) continue;
 
-                var winnerFound = true;
-                foreach (var item in combination)
-                    if (firstCell.CellOwner != item.CellOwner)
-                        winnerFound = false;
+                // var winnerFound = true;
+                // foreach (var item in combination)
+                //     if (firstCell.CellOwner != item.CellOwner)
+                //         winnerFound = false;
 
-                if (winnerFound)
-                {
-                    Winner = firstCell.CellOwner;
+                // if (winnerFound)
+                // {
+                //     Winner = firstCell.CellOwner;
 
-                    Debug.WriteLine($"Method: CheckForWinner {Winner}");
+                //     Debug.WriteLine($"Method: CheckForWinner {Winner}");
 
-                    return true;
-                }
+                //     return true;
+                // }
+
+                // better way:
+                if (combination.Any(tttc => tttc.CellOwner != firstCell.CellOwner))
+                    continue;
+
+                Winner = firstCell.CellOwner;
+
+                Debug.WriteLine($"Method: CheckForWinner {Winner}");
+                return true;
             }
-
-            Debug.WriteLine($"Method: CheckForWinner {Winner}");
 
             return false;
         }

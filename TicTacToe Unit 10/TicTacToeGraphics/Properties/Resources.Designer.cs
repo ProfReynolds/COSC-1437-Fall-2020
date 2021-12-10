@@ -93,9 +93,29 @@ namespace TicTacToeGraphics.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap Shredder {
+            get {
+                object obj = ResourceManager.GetObject("Shredder", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap smiley {
             get {
                 object obj = ResourceManager.GetObject("smiley", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Splinter {
+            get {
+                object obj = ResourceManager.GetObject("Splinter", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

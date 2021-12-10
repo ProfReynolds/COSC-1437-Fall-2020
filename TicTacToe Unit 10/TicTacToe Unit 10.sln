@@ -22,7 +22,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CoreLibrary", "CoreLibrary\
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CoreLibrary_Tests", "CoreLibrary_Tests\CoreLibrary_Tests.csproj", "{47CF55A1-BFAA-4D2C-8D4C-DA9F2298DBB6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TicTacToeGraphics", "TicTacToeGraphics\TicTacToeGraphics.csproj", "{4C37F16D-FD42-4E1E-A893-CC225C0E99F9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TicTacToeGraphics", "TicTacToeGraphics\TicTacToeGraphics.csproj", "{95FF90AD-8946-4E5B-8E4E-69F33E53FAF7}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -58,10 +58,10 @@ Global
 		{47CF55A1-BFAA-4D2C-8D4C-DA9F2298DBB6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{47CF55A1-BFAA-4D2C-8D4C-DA9F2298DBB6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{47CF55A1-BFAA-4D2C-8D4C-DA9F2298DBB6}.Release|Any CPU.Build.0 = Release|Any CPU
-		{4C37F16D-FD42-4E1E-A893-CC225C0E99F9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{4C37F16D-FD42-4E1E-A893-CC225C0E99F9}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{4C37F16D-FD42-4E1E-A893-CC225C0E99F9}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{4C37F16D-FD42-4E1E-A893-CC225C0E99F9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{95FF90AD-8946-4E5B-8E4E-69F33E53FAF7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{95FF90AD-8946-4E5B-8E4E-69F33E53FAF7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{95FF90AD-8946-4E5B-8E4E-69F33E53FAF7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{95FF90AD-8946-4E5B-8E4E-69F33E53FAF7}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
